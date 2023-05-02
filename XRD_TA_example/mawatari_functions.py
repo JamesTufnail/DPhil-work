@@ -3,12 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-## TODO: field_moment_plot: update marker, plot all on one figure, fix titles
-
-
 def field_moment_plot(filename):
     """ JT - Function takes data file names, reads csv file from PPMS data, ignoring first 33 lines (preamble)
      and plots magnetic field against DC moment"""
+    ## TODO: convert from DC Moment into magnetic moment (A m^2), update marker, plot all on one figure, fix titles
 
     data = pd.read_csv("{}".format(filename), skiprows=33)
 
