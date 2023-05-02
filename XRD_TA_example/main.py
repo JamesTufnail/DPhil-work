@@ -14,8 +14,7 @@ mawatari_files = sorted(
 
 selected_files = mawatari_files[:]
 
-for file in selected_files:
-    field_moment_plot(file)
+field_moment_plot(mawatari_files)
 
 
 
