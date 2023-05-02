@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-# import pandas as pd
+import pandas as pd
 from plotting_functions import *
 from mawatari_functions import *
 import glob
@@ -13,10 +13,26 @@ mawatari_files = sorted(
               r"copy)\Fu21Gdo_1\Irr0\PPMS Data\22 12 07\Mawatari*.csv"))
 
 selected_files = mawatari_files[:]
+#
+# field_moment_plot(mawatari_files)
 
-field_moment_plot(mawatari_files)
 
+# import chardet
+#
+# with open(r"C:\Users\James\OneDrive - Nexus365\Paid-work-and-financial\XRD_TA_2023\2P9 XRD Data\2P9 XRD Data\1. Metal identification\Metal_1",
+#           'rb') as f:
+#     result = chardet.detect(f.read())
+#
+# print(result['encoding'])
 
+data = pd.read_csv(r"C:\Users\James\OneDrive - Nexus365\Paid-work-and-financial\XRD_TA_2023\2P9 XRD Data\2P9 XRD Data\1. Metal identification\Metal_1", header=None, names=["Angle", "Intensity"])
+
+print(data.head())
+
+## TODO: edit glob so that the excel file Metal_Peak_List can be in the same folder but be ignored!!
+xrd_data = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\Paid-work-and-financial\XRD_TA_2023\2P9 XRD Data\2P9 XRD Data\1. Metal identification\Metal_*",
+                 ))
+plot_xrd(xrd_data)
 
 
 

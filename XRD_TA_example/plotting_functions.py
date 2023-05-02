@@ -1,14 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Functon to plot XRD angle vs intensity data
-def plot_xrd(filename):
-    data = pd.read_csv("{}".format(filename), header=None, names=["Angle", "Intensity"])
-    angle = data["Angle"]
-    intensity = data["Intensity"]
-    plt.plot(angle, intensity, label='%s data' % filename)
+
+def plot_xrd(filenames):
+    """ JT -  Functon to plot XRD angle vs intensity data
+    INPUTS: filename = array of filenames of datasets"""
+
+    n_files = len(filenames)
+    fig, axes = plt.subplots(nrows=n_files, ncols=1)
+    print(n_files)
+
+    for index, file in enumerate(filenames):
+        data = pd.read_csv(file, header=None, names=["Angle", "Intensity"])
+
+        ax = axes[index]
+        ax.plot(data["Angle"], data["Intensity"], label='{}s data'.format(file))
+
     plt.xlabel(r"Angle (2$\theta$)")
     plt.ylabel("Intensity (cps)")
+    plt.show()
+    print('plot_xrd function has finished for data in {}'.format(filenames))
 
 
 # Function to plot Raman data when presented in two datasets (x_axis and y_axis), verticals (ON/OFF) are to add
@@ -44,3 +56,17 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels):
         plt.annotate('O(4)', xy=(O4_freq, annotate_height), xytext=(O4_freq + 60, annotate_height),
                      arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
 
+
+def plot_scatter(filename, title, x_axis, y_axis):
+    """JT - general scatter plotting function.
+    Inputs: filename, title, x_axis, y_axis"""
+    data = np.loadtxt(fname=filename, delimiter=',')
+
+    plt.scatter(data)
+
+    plt.xlabel(x_axis)
+    plt.ylabel(y_axis)
+    plt.title(title)
+
+    plt.show()
+    print('Scatter function has run succesfully for {}.'.format(filename))
