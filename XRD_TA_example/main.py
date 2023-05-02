@@ -12,8 +12,9 @@ mawatari_files = sorted(
               r"data\OneDrive_2023-01-30\2023-01-20 Neutron Irradiation of Disk Samples - Lot 1 ("
               r"copy)\Fu21Gdo_1\Irr0\PPMS Data\22 12 07\Mawatari*.csv"))
 
+selected_files = mawatari_files[:1]
 
-for file in mawatari_files:
+for file in selected_files:
     field_moment_plot(file)
 
 
