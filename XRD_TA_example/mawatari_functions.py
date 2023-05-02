@@ -18,4 +18,4 @@ def field_moment_plot(filename):
     plt.ylabel('DC Moment (emu)')
 
     plt.show()
-    print('Field_moment_plot has run successfully.')
+    print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
