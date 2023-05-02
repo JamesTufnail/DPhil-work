@@ -11,8 +11,9 @@ def field_moment_plot(filename):
     data = pd.read_csv("{}".format(filename), skiprows=33)
 
     data["Magnetic Field (T)"] = data["Magnetic Field (Oe)"] * 0.0001
+    data["Magnetic Moment (A m^2)"] = data["DC Moment (emu)"] * 0.001
 
-    plt.scatter(data["Magnetic Field (T)"], data["DC Moment (emu)"], marker=1)
+    plt.scatter(data["Magnetic Field (T)"], data["Magnetic Moment (A m^2)"], marker=1)
     plt.title('{}'.format(filename[-12:-4]))
     plt.xlabel('Magnetic Field (T)')
     plt.ylabel('DC Moment (emu)')
