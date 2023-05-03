@@ -6,26 +6,32 @@ import numpy as np
 def plot_xrd(filenames):
     """ JT -  Functon to plot XRD angle vs intensity data
     INPUTS: filename = array of filenames of datasets"""
+    ## TODO: change these to have a more general format, not just one row
 
     n_files = len(filenames)
     fig, axes = plt.subplots(nrows=n_files, ncols=1)
-    print(n_files)
 
     for index, file in enumerate(filenames):
         data = pd.read_csv(file, header=None, names=["Angle", "Intensity"])
 
         ax = axes[index]
-        ax.plot(data["Angle"], data["Intensity"], label='{}s data'.format(file))
+        ax.plot(data["Angle"], data["Intensity"])
 
-    plt.xlabel(r"Angle (2$\theta$)")
-    plt.ylabel("Intensity (cps)")
+        # Searching filename for the last occurence of \, to then label it properly
+        filename_id = file.rfind('\\')
+        ax.set_title('{}'.format(file[filename_id + 1:]))
+
+    fig.text(0.5, 0.04, r"Angle (2$\theta)$)", ha='center', va='center')
+    fig.text(0.06, 0.5, "Intensity (cps)", ha='center', va='center', rotation='vertical')
+
     plt.show()
     print('plot_xrd function has finished for data in {}'.format(filenames))
 
 
-# Function to plot Raman data when presented in two datasets (x_axis and y_axis), verticals (ON/OFF) are to add
-# vertical lines at peaks, labels (ON/OFF) are the same
 def plot_raman_separate_files(x_axis, y_axis, verticals, labels):
+    """JT - Function to plot Raman data when presented in two datasets
+        INPUTS: x_axis, y_axis, verticals=(ON/OFF), labels=(ON/OFF)"""
+
     data_wavenumber = pd.read_table("{}".format(x_axis), header=None, names=["Wavenumber"])
     data_counts = pd.read_table("{}".format(y_axis), header=None, names=["Counts"])
 

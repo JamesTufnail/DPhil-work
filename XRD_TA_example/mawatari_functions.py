@@ -21,7 +21,10 @@ def field_moment_plot(filenames):
         # assigning each subplot its position on the axes
         ax = axes[index]
         ax.plot(data["Magnetic Field (T)"], data["Magnetic Moment (A m^2)"], label='{}'.format(file[-12:-4]))
-        ax.set_title('{}'.format(file[-12:-4]))
+
+        # Searching filename for the last occurence of \, to then label it properly
+        filename_id = file.rfind('_')
+        ax.set_title('{}'.format(file[filename_id + 1:-4]))
 
     fig.suptitle('Raw Mawatari')
     fig.text(0.5, 0.04, "Magnetic Field (T)", ha="center", va="center")
