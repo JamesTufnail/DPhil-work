@@ -33,3 +33,34 @@ def field_moment_plot(filenames):
     plt.tight_layout()
     plt.show()
     print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
+
+def indexing_and_slicing(filename):
+    """JT - This function takes a PPMS file, indexes the locations of the changes of sweep rate,
+    then slices and appends new columns for each sweep rate for the DC Moment and Magnetic Field.
+    It then saves an excel file with the new data."""
+
+    ## TODO: Add the labels of each sweep rate as a header for each column.
+
+    data = pd.read_csv(filename, skiprows=33)
+    data_df = pd.DataFrame(data, columns=['Comment', 'Magnetic Field (Oe)', 'DC Moment (emu)'])
+
+    ## this works to find the indices that the sweep rate changes at
+    indices = []
+    for index, comment in enumerate(data_df["Comment"]):
+        if isinstance(comment, str) and "Ramp" in comment:
+            indices.append(index)
+
+    # This works for slicing the columns up into the right numbers of moment and field
+    moment, field = [], []
+
+    for i, row in enumerate(indices):
+        if i < len(indices) - 1:
+            data_df["New Moment {}".format(i)] = data_df["DC Moment (emu)"][indices[i]:indices[i + 1] - 1]
+            data_df["New Field {}".format(i)] = data_df["Magnetic Field (Oe)"][indices[i]:indices[i + 1] - 1]
+        elif i == len(indices) - 1:
+            data_df["New Moment {}".format(i)] = data_df["DC Moment (emu)"][indices[i]:]
+            data_df["New Field {}".format(i)] = data_df["Magnetic Field (Oe)"][indices[i]:]
+
+    print(data_df)
+    data_df.to_excel("sliced_data.xlsx", index=False)
+    print('Indexing and slicing has successfully run.')
