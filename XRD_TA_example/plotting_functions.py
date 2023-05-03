@@ -2,28 +2,34 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+def plot_xrd(filenames):
+    """ JT -  Functon to plot XRD angle vs intensity data
+    INPUTS: filename = array of filenames of datasets"""
+    ## TODO: change these to have a more general format, not just one row
 
-def plot_xrd(filename, title='XRD Plot'):
-    """JT -  Functon to plot XRD angle vs intensity data
-    INPUTS: filename, title (default title is XRD plot)"""
+    n_files = len(filenames)
+    fig, axes = plt.subplots(nrows=n_files, ncols=1)
 
-    data = pd.read_csv("{}".format(filename), header=None, names=["Angle", "Intensity"])
-    angle = data["Angle"]
-    intensity = data["Intensity"]
+    for index, file in enumerate(filenames):
+        data = pd.read_csv(file, header=None, names=["Angle", "Intensity"])
 
-    plt.plot(angle, intensity, label='%s data' % filename)
-    plt.xlabel(r"Angle (2$\theta$)")
-    plt.ylabel("Intensity (cps)")
-    plt.title('{}'.format(title))
+        ax = axes[index]
+        ax.plot(data["Angle"], data["Intensity"])
+
+        # Searching filename for the last occurence of \, to then label it properly
+        filename_id = file.rfind('\\')
+        ax.set_title('{}'.format(file[filename_id + 1:]))
+
+    fig.text(0.5, 0.04, r"Angle (2$\theta)$)", ha='center', va='center')
+    fig.text(0.06, 0.5, "Intensity (cps)", ha='center', va='center', rotation='vertical')
 
     plt.show()
-    print('plot_XRD has run for {}'.format(filename))
-
+    print('plot_xrd function has finished for data in {}'.format(filenames))
 
 
 def plot_raman_separate_files(x_axis, y_axis, verticals, labels):
-    """JT - Function to plot Raman data when presented in two datasets - e.g. from MRF raman.
-     INPUTS: x_axis data, y_axis data, verticals (ON/OFF) add vertical lines at peaks, labels (ON/OFF) are the same"""
+    """JT - Function to plot Raman data when presented in two datasets
+        INPUTS: x_axis, y_axis, verticals=(ON/OFF), labels=(ON/OFF)"""
 
     data_wavenumber = pd.read_table("{}".format(x_axis), header=None, names=["Wavenumber"])
     data_counts = pd.read_table("{}".format(y_axis), header=None, names=["Counts"])
@@ -55,6 +61,7 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels):
         plt.annotate('O(4)', xy=(O4_freq, annotate_height), xytext=(O4_freq + 60, annotate_height),
                      arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
 
+
 def plot_scatter(filename, title, x_axis, y_axis):
     """JT - general scatter plotting function.
     Inputs: filename, title, x_axis, y_axis"""
@@ -68,4 +75,5 @@ def plot_scatter(filename, title, x_axis, y_axis):
     plt.title(title)
 
     plt.show()
-    print('Scatter function has run successfully for {}.'.format(filename))
+
+    print('Scatter function has run succesfully for {}.'.format(filename))
