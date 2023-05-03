@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 def plot_xrd(filenames):
     """ JT -  Functon to plot XRD angle vs intensity data
     INPUTS: filename = array of filenames of datasets"""
@@ -66,6 +65,7 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels):
 def plot_scatter(filename, title, x_axis, y_axis):
     """JT - general scatter plotting function.
     Inputs: filename, title, x_axis, y_axis"""
+
     data = np.loadtxt(fname=filename, delimiter=',')
 
     plt.scatter(data)
@@ -75,4 +75,5 @@ def plot_scatter(filename, title, x_axis, y_axis):
     plt.title(title)
 
     plt.show()
+
     print('Scatter function has run succesfully for {}.'.format(filename))

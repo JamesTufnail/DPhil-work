@@ -32,4 +32,4 @@ def field_moment_plot(filenames):
 
     plt.tight_layout()
     plt.show()
-    print('Field_moment_plot has run successfully.')
+    print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
