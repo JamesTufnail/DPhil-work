@@ -51,6 +51,7 @@ def indexing_and_slicing(filename):
             indices.append(index)
 
     # This works for slicing the columns up into the right numbers of moment and field
+
     moment, field = [], []
 
     for i, row in enumerate(indices):
@@ -61,6 +62,5 @@ def indexing_and_slicing(filename):
             data_df["New Moment {}".format(i)] = data_df["DC Moment (emu)"][indices[i]:]
             data_df["New Field {}".format(i)] = data_df["Magnetic Field (Oe)"][indices[i]:]
 
-    print(data_df)
-    data_df.to_excel("sliced_data.xlsx", index=False)
+    # data_df.to_excel("sliced_data_{}.xlsx".format(filename), index=False)
     print('Indexing and slicing has successfully run.')
