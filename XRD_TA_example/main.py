@@ -29,13 +29,19 @@ field_moment_plot(mawatari_files)
 #
 # print(data.head())
 
+
+
+
+
+
+
 ## TODO: edit glob so that the excel file Metal_Peak_List can be in the same folder but be ignored!!
 metal_xrd_data = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\Paid-work-and-financial\XRD_TA_2023\2P9 XRD Data\2P9 XRD Data\1. Metal identification\Metal_*",
                  ))
 # plot_xrd(metal_xrd_data)
 
-mgo_xrd_data = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\Paid-work-and-financial\XRD_TA_2023\2P9 XRD Data\2P9 XRD Data\2. MgO quantitative analysis\*"))
-plot_xrd(mgo_xrd_data)
+# mgo_xrd_data = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\Paid-work-and-financial\XRD_TA_2023\2P9 XRD Data\2P9 XRD Data\2. MgO quantitative analysis\*"))
+# plot_xrd(mgo_xrd_data)
 
 # Inputting known values of pristine peaks taken from Thompsen and Kaczmaryzek
 Ba_freq = 115
