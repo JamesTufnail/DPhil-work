@@ -32,7 +32,27 @@ def field_moment_plot(filenames):
 
     plt.tight_layout()
     plt.show()
+    
+
+    # print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
+
+
+def multiple_raw_mawatari(filenames):
+    """ """
+
+
+    for index, file in enumerate(filenames):
+        data = pd.read_csv(file, skiprows=33)
+
+        if "Field" in data.header:
+        data[] = data[] * 0.0001
+
+        elif "Moment" in data.header:
+        data[""] = data[""] * 0.001
+
+
     print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
+
 
 def indexing_and_slicing(filename):
     """JT - This function takes a PPMS file, indexes the locations of the changes of sweep rate,
