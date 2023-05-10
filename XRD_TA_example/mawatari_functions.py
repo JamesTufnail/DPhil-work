@@ -34,10 +34,9 @@ def undifferentiated_raw_mawatari(filenames):
     print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
 
 
-def multiple_raw_mawatari(data, indices):
+def multiple_raw_mawatari(data, indices, title):
     """ JT - This functino should take the dataframe from the file, then use the indices found from FIND_INDICES to
     plot the multiple sweep rates on one plot."""
-    ## TODO: generalise this to plot all files from one sample as subplots in a massive figure
 
     # Converting the units
     data["Magnetic Field (T)"] = data["Magnetic Field (Oe)"] * 0.0001
@@ -50,6 +49,7 @@ def multiple_raw_mawatari(data, indices):
         # print(start_row, end_row)
         plt.scatter(data.iloc[start_row:end_row, 3], data.iloc[start_row:end_row, 4],
                     label='Sweep Rate {}'.format(start_row), s=10)
+        plt.title('{}'.format(title))
         plt.legend()
     plt.show()
 
