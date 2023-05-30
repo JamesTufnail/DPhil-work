@@ -48,8 +48,11 @@ def multiple_raw_mawatari(data, indices, title):
         start_row = indices[new_sweep_row]
         end_row = indices[new_sweep_row + 1] - 1
         # print(start_row, end_row)
+
+        # Setting sweep rate title
+        sweep_rate = data.loc[start_row, "Comment"]
         plt.scatter(data.iloc[start_row:end_row, 3], data.iloc[start_row:end_row, 4],
-                    label='Sweep Rate {}'.format(start_row), s=10)
+                    label='Sweep Rate {}'.format(sweep_rate), s=10)
         plt.title('{}'.format(title))
         plt.legend()
     plt.show()
@@ -59,7 +62,7 @@ def multiple_raw_mawatari(data, indices, title):
 def find_ramp_start(filename):
     """JT - This function takes a PPMS file and finds the indices at which the sweep rate changes.
         OUTPUTS: indices, data_df"""
-
+## TODO: this fiunction also misses the last section of data!!!
     data = pd.read_csv(filename, skiprows=33)
     data_df = pd.DataFrame(data, columns=['Comment', 'Magnetic Field (Oe)', 'DC Moment (emu)'])
 
