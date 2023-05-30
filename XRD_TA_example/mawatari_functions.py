@@ -56,7 +56,7 @@ def multiple_raw_mawatari(data, indices, title):
 
     print('multiple_raw_mawatari has run successfully.')
 
-def find_indices(filename):
+def find_ramp_start(filename):
     """JT - This function takes a PPMS file and finds the indices at which the sweep rate changes.
         OUTPUTS: indices, data_df"""
 
@@ -102,5 +102,4 @@ def indexing_and_slicing(filename):
     return data_df
     data_df.to_excel("sliced_data.xlsx", index=False)
     print('Indexing and slicing has successfully run.')
-
 

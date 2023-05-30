@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+# File contains XRD and Raman plots as well as extracting a filename from a file
+
 def plot_xrd(filenames):
     """ JT -  Functon to plot XRD angle vs intensity data
     INPUTS: filename = array of filenames of datasets"""
