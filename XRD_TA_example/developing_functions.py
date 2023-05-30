@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
 def final_raw_mawatari(data, indices, position):
     """ JT - This functino should take the dataframe from the file, then use the indices found from FIND_INDICES to
     plot the multiple sweep rates on one plot. It should use the position input to position everything on a
@@ -40,14 +41,17 @@ def final_raw_mawatari(data, indices, position):
 # fig, axes = plt.subplots(nrows = n_rows, ncols = n_cols, figsize=(3*n_files, 4))
 
 
-## TODO: finish this as a suscueptibility plot and check its actually plotting the right susceptibility with Simon
+## TODO: finish this as a susceptibility plot and check its actually plotting the right susceptibility with Simon,
+## TODO: write it into a function that can take any file
 magnetisation_measurements = pd.read_csv(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Birmingham Neutron "
                                          r"Irradiation\Birmingham "
                                          r"data\data-for-manipulation-pristine-measurements\Fu21Gdo_1\Irr0\PPMS "
                                          r"Data\22 12 07\Susceptibility_Measurements.csv",
                                          skiprows=33)
 fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, figsize=(8, 5))
-ax1.scatter(magnetisation_measurements["Temperature (K)"][2:233], magnetisation_measurements[r'AC X" (emu/Oe)'][2:233], s=10)
-ax2.scatter(magnetisation_measurements["Temperature (K)"][2:233], magnetisation_measurements["AC X'  (emu/Oe)"][2:233], s=10)
+ax1.scatter(magnetisation_measurements["Temperature (K)"][2:233], magnetisation_measurements[r'AC X" (emu/Oe)'][2:233],
+            s=10)
+ax2.scatter(magnetisation_measurements["Temperature (K)"][2:233], magnetisation_measurements["AC X'  (emu/Oe)"][2:233],
+            s=10)
 plt.tight_layout
 plt.show()
