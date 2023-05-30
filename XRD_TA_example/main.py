@@ -5,18 +5,20 @@ from plotting_functions import *
 from mawatari_functions import *
 import glob
 
+# selected_files = mawatari_files[:]
+
+
+
 ### Code snippet to plot multiple mawatari files in loop
 mawatari_files = sorted(
     glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Birmingham Neutron Irradiation\Birmingham "
               r"data\OneDrive_2023-01-30\2023-01-20 Neutron Irradiation of Disk Samples - Lot 1 ("
               r"copy)\Fu21Gdo_1\Irr0\PPMS Data\22 12 07\Mawatari*.csv"))
-
-# selected_files = mawatari_files[:]
-field_moment_plot(mawatari_files)
-
-for file in mawatari_files:
-    indexing_and_slicing(file)
-
+for file_no, file in enumerate(mawatari_files):
+    indices, data_df = find_indices(mawatari_files[file_no])
+    title = find_title_from_filename(mawatari_files[file_no], '_', 1, -4)
+    multiple_raw_mawatari(data_df, indices, title)
+    #final_raw_mawatari(data_df, indices, file_no)
 
 
 

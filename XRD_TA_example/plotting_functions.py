@@ -77,3 +77,16 @@ def plot_scatter(filename, title, x_axis, y_axis):
     plt.show()
 
     print('Scatter function has run succesfully for {}.'.format(filename))
+
+def find_title_from_filename(filename, character, start, stop):
+    """JT - Function to find the title of a file based on certain charactres in a filename.
+    INPUTS: filename, character (what to search for, e.g. '_'), start (how many values after character to start at),
+    stop (how many values from the end to include).
+    OUTPUTS: title
+    e.g. find_title_from_filename(mawatari_files[0], '_', 1, -4) takes file 0 from mawatari files, looks
+    through the filename until it finds the last case of _ and then names the file the letter after _ until -4
+    letters from the end."""
+
+    filename_id = filename.rfind('{}'.format(character))
+    title = filename[filename_id + start:stop]
+    return title

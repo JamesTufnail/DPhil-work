@@ -1,16 +1,16 @@
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def field_moment_plot(filenames):
+def undifferentiated_raw_mawatari(filenames):
     """ JT - Function takes data file names, reads csv file from PPMS data, ignoring first 33 lines (preamble)
      and plots magnetic field against DC moment"""
-    ## TODO:  update marker, plot all on one neater figure, fix titles
 
     # reads the number of files to determine number of subplots required
     n_files = len(filenames)
-    fig, axes = plt.subplots(nrows=1, ncols=n_files, figsize=(3*n_files, 4))
+    fig, axes = plt.subplots(nrows=1, ncols=n_files, figsize=(3 * n_files, 4))
 
     for index, file in enumerate(filenames):
         data = pd.read_csv(file, skiprows=33)
@@ -32,27 +32,43 @@ def field_moment_plot(filenames):
 
     plt.tight_layout()
     plt.show()
-    
-
-    # print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
-
-
-def multiple_raw_mawatari(filenames):
-    """ """
-
-
-    for index, file in enumerate(filenames):
-        data = pd.read_csv(file, skiprows=33)
-
-        if "Field" in data.header:
-        data[] = data[] * 0.0001
-
-        elif "Moment" in data.header:
-        data[""] = data[""] * 0.001
-
-
     print('Field_moment_plot has run successfully for ...{}.'.format(filename[-25:]))
 
+
+def multiple_raw_mawatari(data, indices, title):
+    """ JT - This functino should take the dataframe from the file, then use the indices found from FIND_INDICES to
+    plot the multiple sweep rates on one plot."""
+
+    # Converting the units
+    data["Magnetic Field (T)"] = data["Magnetic Field (Oe)"] * 0.0001
+    data["Magnetic Moment (A m^2)"] = data["DC Moment (emu)"] * 0.001
+
+    # Plotting for multiple sweep rates depending on the index
+    for new_sweep_row in range(len(indices) - 1):
+        start_row = indices[new_sweep_row]
+        end_row = indices[new_sweep_row + 1] - 1
+        # print(start_row, end_row)
+        plt.scatter(data.iloc[start_row:end_row, 3], data.iloc[start_row:end_row, 4],
+                    label='Sweep Rate {}'.format(start_row), s=10)
+        plt.title('{}'.format(title))
+        plt.legend()
+    plt.show()
+
+    print('multiple_raw_mawatari has run successfully.')
+
+def find_indices(filename):
+    """JT - This function takes a PPMS file and finds the indices at which the sweep rate changes.
+        OUTPUTS: indices, data_df"""
+
+    data = pd.read_csv(filename, skiprows=33)
+    data_df = pd.DataFrame(data, columns=['Comment', 'Magnetic Field (Oe)', 'DC Moment (emu)'])
+
+    ## this works to find the indices that the sweep rate changes at
+    indices = []
+    for index, comment in enumerate(data_df["Comment"]):
+        if isinstance(comment, str) and "Ramp" in comment:
+            indices.append(index)
+    return indices, data_df
 
 def indexing_and_slicing(filename):
     """JT - This function takes a PPMS file, indexes the locations of the changes of sweep rate,
@@ -82,5 +98,9 @@ def indexing_and_slicing(filename):
             data_df["New Moment {}".format(i)] = data_df["DC Moment (emu)"][indices[i]:]
             data_df["New Field {}".format(i)] = data_df["Magnetic Field (Oe)"][indices[i]:]
 
-    # data_df.to_excel("sliced_data_{}.xlsx".format(filename), index=False)
+    # save sliced data temporarily so that I can call each datafile for plotting in another function!!
+    return data_df
+    data_df.to_excel("sliced_data.xlsx", index=False)
     print('Indexing and slicing has successfully run.')
+
+
