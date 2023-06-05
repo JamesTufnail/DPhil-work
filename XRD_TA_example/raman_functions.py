@@ -52,7 +52,7 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels, title, save_pat
     plt.title("{}".format(title))
 
     plt.savefig(save_path)
-    plt.show()
+    #plt.show()
     plt.close()
 
 def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):

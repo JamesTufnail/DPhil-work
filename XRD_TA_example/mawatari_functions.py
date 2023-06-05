@@ -62,7 +62,8 @@ def multiple_raw_mawatari(data, indices, title):
 def find_ramp_start(filename):
     """JT - This function takes a PPMS file and finds the indices at which the sweep rate changes.
         OUTPUTS: indices, data_df"""
-## TODO: this fiunction also misses the last section of data!!!
+## TODO: this function also misses the last section of data!!!
+
     data = pd.read_csv(filename, skiprows=33)
     data_df = pd.DataFrame(data, columns=['Comment', 'Magnetic Field (Oe)', 'DC Moment (emu)'])
 
