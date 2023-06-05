@@ -55,4 +55,4 @@ def find_title_from_filename(filename, character, start, stop):
 
     filename_id = filename.rfind('{}'.format(character))
     title = filename[filename_id + start:stop]
-    return titlev
+    return title

@@ -4,17 +4,26 @@ import pandas as pd
 from raman_functions import *
 from mawatari_functions import *
 from developing_functions import *
+from misc_functions import *
 import glob
 
 
 ############ Code snippet to plot individual raman files ##########
-individual_raman = True
-if individual_raman:
+individual__raw_raman = True
+if individual__raw_raman:
+
+    # 810YBCO-2b-2MeV-He
+    title = '810YBCO-2b-2MeV He'
     x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-2b-2MeV-He\* (X-Axis).txt"))
     y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-2b-2MeV-He\* (Y-Axis).txt"))
+    save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-2b-2MeV-He\Figures\{}.png".format(x_axis[-24:])
+    ## TODO: update save path so figures will save automatically, also fix naming
+
+    # 810YBCO- ....
+    ## TODO: insert other samples so they can be turned on and off
 
     for x_file, y_file in zip(x_axis, y_axis):
-        plot_raman_separate_files(x_file, y_file, 'ON', 'ON')
+        plot_raman_separate_files(x_file, y_file, 'ON', 'ON', title, save_path)
 
 
 ############ Code snippet to plot raw cascade raman files ##########

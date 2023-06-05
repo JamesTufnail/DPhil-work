@@ -12,7 +12,7 @@ O2_O3_freq1 = 334
 O2_O3_freq2 = 438
 O4_freq = 502
 
-def plot_raman_separate_files(x_axis, y_axis, verticals, labels):
+def plot_raman_separate_files(x_axis, y_axis, verticals, labels, title, save_path):
     """JT - Function to plot Raman data when presented in two datasets
         INPUTS: x_axis, y_axis, verticals=(ON/OFF), labels=(ON/OFF)"""
 
@@ -48,9 +48,12 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels):
                      arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
 
     # Just using title to figure out which plots to delete
-    title = x_axis[-30:]
-    plt.title(title)
+    # title = x_axis[-30:]
+    plt.title("{}".format(title))
+
+    plt.savefig(save_path)
     plt.show()
+    plt.close()
 
 def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):
     """JT - Function that takes list of input file names (with * if necessary), normalises the y
@@ -102,4 +105,5 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):
                      arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
 
     plt.show()
+
 
