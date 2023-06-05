@@ -1,10 +1,31 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from plotting_functions import *
+from raman_functions import *
 from mawatari_functions import *
 from developing_functions import *
 import glob
+
+
+############ Code snippet to plot individual raman files ##########
+individual_raman = True
+if individual_raman:
+    x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-2b-2MeV-He\* (X-Axis).txt"))
+    y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-2b-2MeV-He\* (Y-Axis).txt"))
+
+    for x_file, y_file in zip(x_axis, y_axis):
+        plot_raman_separate_files(x_file, y_file, 'ON', 'ON')
+
+
+############ Code snippet to plot raw cascade raman files ##########
+raw_cascade_raman = False
+if raw_cascade_raman:
+    x_axis = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-2b-2MeV-He\* (X-Axis).txt"
+    y_axis = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-2b-2MeV-He\* (Y-Axis).txt"
+
+    plot_raw_raman_cascade(x_axis, y_axis, 'ON', 'ON')
+
+
 
 ######### Code snippet to plot Susceptibility - Temperature plot
 susceptibility = False
@@ -22,7 +43,7 @@ if susceptibility:
 
 
 ########### Code snippet to plot multiple Mawatari files in loop #############
-mawatari = True
+mawatari = False
 if mawatari:
     mawatari_files = sorted(
         glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Birmingham Neutron Irradiation\Birmingham "
