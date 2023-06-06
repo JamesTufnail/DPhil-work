@@ -55,7 +55,7 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels, title, save_pat
     #plt.show()
     plt.close()
 
-def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):
+def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels, title, save_path):
     """JT - Function that takes list of input file names (with * if necessary), normalises the y
     values, shifts each iteration vertically by 1 and plots them all on the same cascade plot.
         INPUTS: x_file_names (name of file with x values in), y_file_names (name of file with y values in)
@@ -67,6 +67,10 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):
 
     v_shift = 0
 
+    plt.figure(figsize=(10, 12))
+
+    # Iterates over the x and y files, zipping them together into a single array. Then normalises them,
+    # and shifts each iteration vertically by 1. Names each iteration plotted on graph
     for x_file, y_file in zip(wavenumbers,counts):
         data_wavenumber = pd.read_table(x_file)
         data_counts = pd.read_table(y_file)
@@ -79,7 +83,7 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):
         v_shift+=1
 
         # Plotting iteration fo scatter graph
-        plt.plot(data_wavenumber, data_counts, linewidth=1)
+        plt.plot(data_wavenumber, data_counts, label='{}'.format(x_file[-36:-26]), linewidth=1)
         plt.xlim(50, 750)
 
     # plotting verticals
@@ -89,7 +93,6 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):
         plt.axvline(x=O2_O3_freq1, ls='--', lw='0.5', color='black')
         plt.axvline(x=O2_O3_freq2, ls='--', lw='0.5', color='black')
         plt.axvline(x=O4_freq, ls='--', lw='0.5', color='black')
-
     # Adding annotation arrows for known peaks
     if labels == 'ON':
         annotate_height = v_shift
@@ -104,6 +107,11 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels):
         plt.annotate('O(4)', xy=(O4_freq, annotate_height), xytext=(O4_freq + 60, annotate_height),
                      arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
 
-    plt.show()
+    plt.title("{}".format(title))
+    plt.legend(loc='upper right')
+    plt.savefig(save_path)
+    plt.close()
+    #plt.show()
+    print('Cascade Raman Plot run succesfully and saved in {}'.format(save_path))
 
 
