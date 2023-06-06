@@ -115,3 +115,24 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels, title,
     print('Cascade Raman Plot run succesfully and saved in {}'.format(save_path))
 
 
+
+def annotate_raman_peaks(verticals, labels, annotate_height):
+    # plotting verticals
+    if verticals == 'ON':
+        plt.axvline(x=Ba_freq, ls='--', lw='0.5', color='black')
+        plt.axvline(x=Cu2_freq, ls='--', lw='0.5', color='black')
+        plt.axvline(x=O2_O3_freq1, ls='--', lw='0.5', color='black')
+        plt.axvline(x=O2_O3_freq2, ls='--', lw='0.5', color='black')
+        plt.axvline(x=O4_freq, ls='--', lw='0.5', color='black')
+    # Adding annotation arrows for known peaks
+    if labels == 'ON':
+        plt.annotate('Ba', xy=(Ba_freq, annotate_height), xytext=(Ba_freq - 55, annotate_height),
+                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
+        plt.annotate('Cu(2)', xy=(Cu2_freq, annotate_height), xytext=(Cu2_freq + 60, annotate_height),
+                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
+        plt.annotate('O(2)+/O(3)-', xy=(O2_O3_freq1, annotate_height), xytext=(O2_O3_freq1 - 90, annotate_height - 0.1),
+                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
+        plt.annotate('O(2)+/O(3)+', xy=(O2_O3_freq2, annotate_height), xytext=(O2_O3_freq2 - 90, annotate_height),
+                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
+        plt.annotate('O(4)', xy=(O4_freq, annotate_height), xytext=(O4_freq + 60, annotate_height),
+                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))

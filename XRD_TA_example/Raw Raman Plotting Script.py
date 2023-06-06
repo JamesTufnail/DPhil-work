@@ -7,6 +7,17 @@ from developing_functions import *
 from misc_functions import *
 import glob
 
+
+""" README --- SCRIPT DESCRIPTION ---
+This script will take the data from MRF raman txt files (x-axis) and (y-axis) and plot them into either individual 
+plots, or into a larger cascade and save them in a folder in the sample folder called Figures.
+
+You have to comment in the sections that are for the sample you want to plot. It will plot all the x-axis and y-axis
+values in that folder, so you can move them out if you don't want them plotted.
+
+THIS IS TO HELP INFORM YOUR DATA PROCESSING, NOT FOR DATA PRESENTATION DIRECTLY!!!
+"""
+
 ## TODO: generalise these into their own functions
 
 ############ Code snippet to plot all individual raman files from folder ##########

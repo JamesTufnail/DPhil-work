@@ -12,9 +12,46 @@ import glob
 
 
 
+#### Code snippet to compare raman plots on same figure ##
+## TODO: Turn this into a function, also add a function that just adds the verticals and annotations
+## TODO: Make these the inputs to the function, you also need a function that will tell you the order so that yoy can choose the labelling
+x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(X-Axis).txt"))
+y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(Y-Axis).txt"))
 
+#print(y_axis)
+labels=['2b (dose? 2MeV He annealed)', '3b-3c (5e14 2MeV O$^+$)', '2b (dose? 2 MeV He)', '2b (dose? 2MeV He)', '3b-3c (5e14 2MeV O$^+$ annealed)', '1a (pristine)', '1a (pristine)']
 
+plt.figure(figsize=(12, 10))
 
+v_shift = 0
+
+for x_file, y_file, label in zip(x_axis, y_axis, labels):
+    # Read the data from the files
+    data_wavenumber = pd.read_table(x_file)
+    data_counts = pd.read_table(y_file)
+
+    # Normalising counts
+    data_counts = (data_counts - data_counts.min()) / (data_counts.max() - data_counts.min())
+
+    # Shifting vertically
+    data_counts = data_counts + 1 * v_shift
+    v_shift += 1
+
+    # Plotting iteration fo scatter graph
+    plt.plot(data_wavenumber, data_counts, label=label, linewidth=1)
+    plt.xlim(50, 750)
+
+# Adding peaks to plot
+annotate_raman_peaks('ON', 'ON', 4)
+
+# Naming and saving plot
+plt.title('Light region raw spectra in pristine and irradiated YBCO thin films')
+plt.legend(loc='upper right')
+plt.xlabel('Wavenumber (cm$^{-1}$)')
+plt.ylabel('Normalised Intensity (counts)')
+
+save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\22light_raw_cascade.png"
+plt.savefig(save_path)
 
 
 
