@@ -12,6 +12,28 @@ O2_O3_freq1 = 334
 O2_O3_freq2 = 438
 O4_freq = 502
 
+
+def raman_zipping(x_axis, y_axis, save_folder):
+    """ JT - Function to take the MRF raman files in x-axis and y-axis form and zip them together into one .txt file.
+    This is to be used on the selected data that you want to use in Origin.
+
+    :param x_axis: file path of X-Axis Raman data
+    :param y_axis: file path of Y-Axis Raman data
+    :param save_folder: file path of 'Zipped Files for Origin' folder
+    :return: saves as .txt file of zipped file with filename
+    """
+    counts = np.loadtxt(r"{}".format(x_axis))
+    wavenumber = np.loadtxt(r"{}".format(y_axis))
+
+    zipped_name = y_axis[-51:-13]
+    save_path = save_folder + "\\" + zipped_name +".txt"
+
+    zipped = np.column_stack((wavenumber, counts))
+
+    np.savetxt(save_path, zipped)
+
+    print('Zipping of file {} is complete.'.format(zipped_name))
+
 def plot_raman_separate_files(x_axis, y_axis, verticals, labels, title, save_path):
     """JT - Function to plot Raman data when presented in two datasets
         INPUTS: x_axis, y_axis, verticals=(ON/OFF), labels=(ON/OFF)"""
@@ -24,28 +46,6 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels, title, save_pat
         'Counts'].min()) / (data_counts['Counts'].max() - data_counts['Counts'].min())
 
     plt.plot(data_wavenumber['Wavenumber'], data_counts['Counts'], linewidth=1)
-
-    # plotting verticals
-    if verticals == 'ON':
-        plt.axvline(x=Ba_freq, ls='--', lw='0.5', color='black')
-        plt.axvline(x=Cu2_freq, ls='--', lw='0.5', color='black')
-        plt.axvline(x=O2_O3_freq1, ls='--', lw='0.5', color='black')
-        plt.axvline(x=O2_O3_freq2, ls='--', lw='0.5', color='black')
-        plt.axvline(x=O4_freq, ls='--', lw='0.5', color='black')
-
-    # Adding annotation arrows for known peaks
-    if labels == 'ON':
-        annotate_height = 1
-        plt.annotate('Ba', xy=(Ba_freq, annotate_height), xytext=(Ba_freq - 55, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('Cu(2)', xy=(Cu2_freq, annotate_height), xytext=(Cu2_freq + 60, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('O(2)+/O(3)-', xy=(O2_O3_freq1, annotate_height), xytext=(O2_O3_freq1 - 90, annotate_height - 0.1),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('O(2)+/O(3)+', xy=(O2_O3_freq2, annotate_height), xytext=(O2_O3_freq2 - 90, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('O(4)', xy=(O4_freq, annotate_height), xytext=(O4_freq + 60, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
 
     # Just using title to figure out which plots to delete
     # title = x_axis[-30:]
@@ -85,27 +85,6 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels, title,
         # Plotting iteration fo scatter graph
         plt.plot(data_wavenumber, data_counts, label='{}'.format(x_file[-36:-26]), linewidth=1)
         plt.xlim(50, 750)
-
-    # plotting verticals
-    if verticals == 'ON':
-        plt.axvline(x=Ba_freq, ls='--', lw='0.5', color='black')
-        plt.axvline(x=Cu2_freq, ls='--', lw='0.5', color='black')
-        plt.axvline(x=O2_O3_freq1, ls='--', lw='0.5', color='black')
-        plt.axvline(x=O2_O3_freq2, ls='--', lw='0.5', color='black')
-        plt.axvline(x=O4_freq, ls='--', lw='0.5', color='black')
-    # Adding annotation arrows for known peaks
-    if labels == 'ON':
-        annotate_height = v_shift
-        plt.annotate('Ba', xy=(Ba_freq, annotate_height), xytext=(Ba_freq - 55, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('Cu(2)', xy=(Cu2_freq, annotate_height), xytext=(Cu2_freq + 60, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('O(2)+/O(3)-', xy=(O2_O3_freq1, annotate_height), xytext=(O2_O3_freq1 - 90, annotate_height - 0.1),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('O(2)+/O(3)+', xy=(O2_O3_freq2, annotate_height), xytext=(O2_O3_freq2 - 90, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
-        plt.annotate('O(4)', xy=(O4_freq, annotate_height), xytext=(O4_freq + 60, annotate_height),
-                     arrowprops=dict(facecolor='black', headwidth=5, headlength=5, width=2))
 
     plt.title("{}".format(title))
     plt.legend(loc='upper right')

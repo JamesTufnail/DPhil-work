@@ -10,48 +10,63 @@ import glob
 ## TODO: Plot all raw raman files and compare different samples with same parameters. Then plot same parameters but different samples together on cascade plot
 ## TODO: use a background subtraction and replot them all
 
+### Code snippet to zip together selected Raman files
+x_axis = sorted(glob.glob(
+    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light_RAW\*(X-Axis).txt"))
+y_axis = sorted(glob.glob(
+    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light_RAW\*(Y-Axis).txt"))
+save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light_RAW\Zipped Files for Origin"
+print('Running')
+
+for x_file, y_file in zip(x_axis, y_axis):
+    print('Entered function')
+    raman_zipping(x_file, y_file, save_path)
+    print('Iteration Run')
 
 
-#### Code snippet to compare raman plots on same figure ##
-## TODO: Turn this into a function, also add a function that just adds the verticals and annotations
-## TODO: Make these the inputs to the function, you also need a function that will tell you the order so that yoy can choose the labelling
-x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(X-Axis).txt"))
-y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(Y-Axis).txt"))
 
-#print(y_axis)
-labels=['2b (dose? 2MeV He annealed)', '3b-3c (5e14 2MeV O$^+$)', '2b (dose? 2 MeV He)', '2b (dose? 2MeV He)', '3b-3c (5e14 2MeV O$^+$ annealed)', '1a (pristine)', '1a (pristine)']
+#### Code snippet to plot selected raman plots on same figure ##
+raw_selected_cascade = False
+if raw_selected_cascade:
+    ## TODO: Turn this into a function, also add a function that just adds the verticals and annotations
+    ## TODO: Make these the inputs to the function, you also need a function that will tell you the order so that yoy can choose the labelling
+    x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(X-Axis).txt"))
+    y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(Y-Axis).txt"))
 
-plt.figure(figsize=(12, 10))
+    #print(y_axis)
+    labels=['2b (dose? 2MeV He annealed)', '3b-3c (5e14 2MeV O$^+$)', '2b (dose? 2 MeV He)', '2b (dose? 2MeV He)', '3b-3c (5e14 2MeV O$^+$ annealed)', '1a (pristine)', '1a (pristine)']
 
-v_shift = 0
+    plt.figure(figsize=(12, 10))
 
-for x_file, y_file, label in zip(x_axis, y_axis, labels):
-    # Read the data from the files
-    data_wavenumber = pd.read_table(x_file)
-    data_counts = pd.read_table(y_file)
+    v_shift = 0
 
-    # Normalising counts
-    data_counts = (data_counts - data_counts.min()) / (data_counts.max() - data_counts.min())
+    for x_file, y_file, label in zip(x_axis, y_axis, labels):
+        # Read the data from the files
+        data_wavenumber = pd.read_table(x_file)
+        data_counts = pd.read_table(y_file)
 
-    # Shifting vertically
-    data_counts = data_counts + 1 * v_shift
-    v_shift += 1
+        # Normalising counts
+        data_counts = (data_counts - data_counts.min()) / (data_counts.max() - data_counts.min())
 
-    # Plotting iteration fo scatter graph
-    plt.plot(data_wavenumber, data_counts, label=label, linewidth=1)
-    plt.xlim(50, 750)
+        # Shifting vertically
+        data_counts = data_counts + 1 * v_shift
+        v_shift += 1
 
-# Adding peaks to plot
-annotate_raman_peaks('ON', 'ON', 4)
+        # Plotting iteration fo scatter graph
+        plt.plot(data_wavenumber, data_counts, label=label, linewidth=1)
+        plt.xlim(50, 750)
 
-# Naming and saving plot
-plt.title('Light region raw spectra in pristine and irradiated YBCO thin films')
-plt.legend(loc='upper right')
-plt.xlabel('Wavenumber (cm$^{-1}$)')
-plt.ylabel('Normalised Intensity (counts)')
+    # Adding peaks to plot
+    annotate_raman_peaks('ON', 'ON', 4)
 
-save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\22light_raw_cascade.png"
-plt.savefig(save_path)
+    # Naming and saving plot
+    plt.title('Light region raw spectra in pristine and irradiated YBCO thin films')
+    plt.legend(loc='upper right')
+    plt.xlabel('Wavenumber (cm$^{-1}$)')
+    plt.ylabel('Normalised Intensity (counts)')
+
+    save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\22light_raw_cascade.png"
+    plt.savefig(save_path)
 
 
 
