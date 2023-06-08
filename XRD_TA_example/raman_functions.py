@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 
-# File contains Raman plotting functions
+# File contains Raman plotting and other related functions
 
 # Inputting known values of pristine peaks taken from Thompsen and Kaczmaryzek
 Ba_freq = 115

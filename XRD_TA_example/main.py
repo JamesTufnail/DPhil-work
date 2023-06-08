@@ -1,40 +1,78 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
+
 from raman_functions import *
-from mawatari_functions import *
+from PycharmProjects.mawatari_practice.mawatari_functions import *
 from developing_functions import *
 from misc_functions import *
 import glob
+from BaselineRemoval import BaselineRemoval
 
 ## TODO: Plot all raw raman files and compare different samples with same parameters. Then plot same parameters but different samples together on cascade plot
 ## TODO: use a background subtraction and replot them all
 
-### Code snippet to zip together selected Raman files
-x_axis = sorted(glob.glob(
-    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light_RAW\*(X-Axis).txt"))
-y_axis = sorted(glob.glob(
-    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light_RAW\*(Y-Axis).txt"))
-save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light_RAW\Zipped Files for Origin"
-print('Running')
 
+## Background subtraction of selected data sets!!! ##
+## TODO: turn this subtraction into a function
+
+x_axis = sorted(glob.glob(
+    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(X-Axis).txt"))
+y_axis = sorted(glob.glob(
+    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(Y-Axis).txt"))
+save_folder = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_BackgroundSubtracted"
+
+poly_degree = 5
 for x_file, y_file in zip(x_axis, y_axis):
-    print('Entered function')
-    raman_zipping(x_file, y_file, save_path)
-    print('Iteration Run')
+
+    # Reading sorted file names
+    counts = np.loadtxt(r"{}".format(x_file))
+    wavenumber = np.loadtxt(r"{}".format(y_file))
+
+    # Setting counts as baseObj and running background sub
+    baseObj = BaselineRemoval(wavenumber)
+    Modpoly_subtracted=baseObj.ModPoly(poly_degree)
+
+
+    fig, axes = plt.subplots(1, 2, figsize=(10, 10))
+    axes[0].plot(counts, wavenumber)
+    axes[0].set_title('Raw Data')
+
+    axes[1].plot(Modpoly_subtracted)
+    axes[1].set_title('Modpoly (p={})'.format(poly_degree))
+
+    # Imodpoly_subtracted=baseObj.IModPoly(poly_degree)
+    # axes[2].plot(Imodpoly_subtracted)
+    # axes[2].set_title('Imodpoly (p={})'.format(poly_degree))
+
+    ## TODO: write a save_file function that saves a txt file or png. Nest this sace function in many other functions
+
+    # Saving png file
+    zipped_name = y_file[-51:-13]
+    save_path = save_folder + "\\" + zipped_name + ".png"
+    plt.savefig(save_path)
+    plt.close(fig)
+
+    # Zipping and saving subtracted txt file
+    save_path = save_folder + "\\" + zipped_name + "Zipped-Modpoly_p={}_subtracted.txt".format(poly_degree)
+    zipped = np.column_stack((wavenumber, Modpoly_subtracted))
+    np.savetxt(save_path, zipped)
+
+print('Finished')
+
+
 
 
 
 #### Code snippet to plot selected raman plots on same figure ##
 raw_selected_cascade = False
 if raw_selected_cascade:
-    ## TODO: Turn this into a function, also add a function that just adds the verticals and annotations
-    ## TODO: Make these the inputs to the function, you also need a function that will tell you the order so that yoy can choose the labelling
-    x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(X-Axis).txt"))
-    y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\*(Y-Axis).txt"))
+    ## TODO: Turn this into a function
+    ### Make these the inputs to the function, you also need a function that will tell you the order so that yoy can choose the labelling
+    x_axis = sorted(glob.glob(
+        r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(X-Axis).txt"))
+    y_axis = sorted(glob.glob(
+        r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(Y-Axis).txt"))
 
     #print(y_axis)
-    labels=['2b (dose? 2MeV He annealed)', '3b-3c (5e14 2MeV O$^+$)', '2b (dose? 2 MeV He)', '2b (dose? 2MeV He)', '3b-3c (5e14 2MeV O$^+$ annealed)', '1a (pristine)', '1a (pristine)']
+    labels=['2b (3.6e16 2MeV He annealed)', '3b-3c (5e14 2MeV O$^+$)', '2b (3.6e16 2 MeV He)', '2b (3.6e16 2MeV He)', '3b-3c (5e14 2MeV O$^+$ annealed)', '1a (pristine)', '1a (pristine)']
 
     plt.figure(figsize=(12, 10))
 

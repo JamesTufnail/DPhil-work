@@ -3,6 +3,7 @@ from BaselineRemoval import BaselineRemoval
 import numpy as np
 from scipy import interpolate
 
+## TODO: Check if this approach is even better than using the Origin method. You can try other smoothing functions, maybe also it's better to do the smoothing before the background subtraction?
 
 ### Running all four background sub types ###
 run_all = False
