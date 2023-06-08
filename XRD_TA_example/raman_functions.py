@@ -34,9 +34,9 @@ def raman_zipping(x_axis, y_axis, save_folder):
 
     print('Zipping of file {} is complete.'.format(zipped_name))
 
-def plot_raman_separate_files(x_axis, y_axis, verticals, labels, title, save_path):
+def plot_raman_separate_files(x_axis, y_axis, title, save_path):
     """JT - Function to plot Raman data when presented in two datasets
-        INPUTS: x_axis, y_axis, verticals=(ON/OFF), labels=(ON/OFF)"""
+        INPUTS: x_axis, y_axis, """
 
     data_wavenumber = pd.read_table("{}".format(x_axis), header=None, names=["Wavenumber"])
     data_counts = pd.read_table("{}".format(y_axis), header=None, names=["Counts"])
@@ -55,11 +55,11 @@ def plot_raman_separate_files(x_axis, y_axis, verticals, labels, title, save_pat
     #plt.show()
     plt.close()
 
-def plot_raw_raman_cascade(x_file_names, y_file_names, verticals, labels, title, save_path):
+def plot_raw_raman_cascade(x_file_names, y_file_names, title, save_path):
     """JT - Function that takes list of input file names (with * if necessary), normalises the y
     values, shifts each iteration vertically by 1 and plots them all on the same cascade plot.
         INPUTS: x_file_names (name of file with x values in), y_file_names (name of file with y values in)
-        verticals=(ON/OFF), labels=(ON/OFF)"""
+       """
 
     # Reading in file names
     wavenumbers = sorted(glob.glob("{}".format(x_file_names)))

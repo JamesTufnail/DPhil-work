@@ -57,7 +57,7 @@ if individual__raw_raman:
         save_path = save + "\{}.png".format(name + " __ {}".format(x_file[-48:-26]))
 
         # Actual plotting function
-        plot_raman_separate_files(x_file, y_file, 'ON', 'ON', title, save_path)
+        plot_raman_separate_files(x_file, y_file, title, save_path)
 
 
 ############ General code snippet to plot raw cascade raman files from folder ##########
@@ -94,7 +94,7 @@ if raw_cascade_raman:
     # Defining plot title, save path and actually plotting cascade
     title = name
     save_path = save + "\{}.png".format(name)
-    plot_raw_raman_cascade(x_axis, y_axis, 'ON', 'ON', title, save_path)
+    plot_raw_raman_cascade(x_axis, y_axis, title, save_path)
 
 
 
