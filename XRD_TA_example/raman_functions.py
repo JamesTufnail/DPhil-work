@@ -12,6 +12,18 @@ O2_O3_freq1 = 334
 O2_O3_freq2 = 438
 O4_freq = 502
 
+def normalising_to_max(data):
+    norm_data = (data - data.min()) / (data.max() - data.min())
+    return norm_data
+
+def normalising_to_tail(data):
+    """ JT - Must use .iloc if using Dataframe
+
+    :param data:
+    :return:
+    """
+    norm_data = (data - data.min()) / (data.iloc[-1] - data.min())
+    return norm_data
 
 def raman_zipping(x_axis, y_axis, save_folder):
     """ JT - Function to take the MRF raman files in x-axis and y-axis form and zip them together into one .txt file.
@@ -96,6 +108,7 @@ def plot_raw_raman_cascade(x_file_names, y_file_names, title, save_path):
 
 
 def annotate_raman_peaks(verticals, labels, annotate_height):
+
     # plotting verticals
     if verticals == 'ON':
         plt.axvline(x=Ba_freq, ls='--', lw='0.5', color='black')
@@ -103,6 +116,7 @@ def annotate_raman_peaks(verticals, labels, annotate_height):
         plt.axvline(x=O2_O3_freq1, ls='--', lw='0.5', color='black')
         plt.axvline(x=O2_O3_freq2, ls='--', lw='0.5', color='black')
         plt.axvline(x=O4_freq, ls='--', lw='0.5', color='black')
+
     # Adding annotation arrows for known peaks
     if labels == 'ON':
         plt.annotate('Ba', xy=(Ba_freq, annotate_height), xytext=(Ba_freq - 55, annotate_height),

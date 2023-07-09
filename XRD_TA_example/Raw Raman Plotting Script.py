@@ -14,19 +14,21 @@ THIS IS TO HELP INFORM YOUR DATA PROCESSING, NOT FOR DATA PRESENTATION DIRECTLY!
 """
 
 ### Code snippet to zip together selected Raman files
-x_axis = sorted(glob.glob(
-    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(X-Axis).txt"))
-y_axis = sorted(glob.glob(
-    r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(Y-Axis).txt"))
-save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Zipped Files for Origin"
+zipping_selected_files = False
+if zipping_selected_files:
+    x_axis = sorted(glob.glob(
+        r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(X-Axis).txt"))
+    y_axis = sorted(glob.glob(
+        r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Setting22_light_RAW\*(Y-Axis).txt"))
+    save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\YBCO Thin Films Comparison Data - RAW\Setting22_light\Zipped Files for Origin"
 
-for x_file, y_file in zip(x_axis, y_axis):
-    raman_zipping(x_file, y_file, save_path)
+    for x_file, y_file in zip(x_axis, y_axis):
+        raman_zipping(x_file, y_file, save_path)
 
 ############ Code snippet to plot all individual raman files from folder ##########
 ## TODO: generalise these into their own functions
 ## TODO: check naming is correct with actual samples
-individual__raw_raman = False
+individual__raw_raman = True
 if individual__raw_raman:
 
     # name = 'RAW - 810YBCO-2b-2MeV He 3.6e16'
@@ -44,10 +46,20 @@ if individual__raw_raman:
     # y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c\* (Y-Axis).txt"))
     # save = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c\Figures"
 
-    name = 'RAW - 810YBCO-3b-3c 2MeV O 5e14 annealed'
-    x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c-annealed\* (X-Axis).txt"))
-    y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c-annealed\* (Y-Axis).txt"))
-    save = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c-annealed\Figures"
+    # name = 'RAW - 810YBCO-3b-3c 2MeV O 5e14 annealed'
+    # x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c-annealed\* (X-Axis).txt"))
+    # y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c-annealed\* (Y-Axis).txt"))
+    # save = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\James Tufnail - YBCO thin films\810ybco-3b-3c-annealed\Figures"
+    #
+    # name = 'RAW - 810YBCO-1c-2c 8.6e15 300keV He'
+    # x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\James Tufnail - YBCO thin films\810ybco-1c-2c-8.6e15-300keV-He\*(X-Axis).txt"))
+    # y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\James Tufnail - YBCO thin films\810ybco-1c-2c-8.6e15-300keV-He\*(Y-Axis).txt"))
+    # save = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\James Tufnail - YBCO thin films\810ybco-1c-2c-8.6e15-300keV-He\Figures"
+
+    name = 'RAW - 810YBCO-1c-2c 8.6e15 300keV He annealed'
+    x_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\James Tufnail - YBCO thin films\810ybco-1c-2c-8.6e15-300keV-He-annealed\*(X-Axis).txt"))
+    y_axis = sorted(glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\James Tufnail - YBCO thin films\810ybco-1c-2c-8.6e15-300keV-He-annealed\*(Y-Axis).txt"))
+    save = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\James Tufnail - YBCO thin films\810ybco-1c-2c-8.6e15-300keV-He-annealed\Figures"
 
     # zipping together the x_axis and y_axis arrays and defining the loop variable of each x and y as x_file and y_file
     for x_file, y_file in zip(x_axis, y_axis):
@@ -62,7 +74,7 @@ if individual__raw_raman:
 
 ############ General code snippet to plot raw cascade raman files from folder ##########
 ## TODO: generalise these into their own functions
-raw_cascade_raman = True
+raw_cascade_raman = False
 if raw_cascade_raman:
 
     # name = 'RAW CASCADE - 810YBCO-2b-2MeV He 3.6e16'
