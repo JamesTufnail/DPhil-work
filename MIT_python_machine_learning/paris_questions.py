@@ -1,6 +1,10 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
-df = pd.read_csv(r"C:\Users\James\OneDrive\Documents\CVs and applications\Online Courses\AIMOOC\Modules\Module1\Data\city_temperature.csv")
+df = pd.read_csv(r"C:\Users\James\OneDrive\Documents\CVs and applications\Online Courses\AIMOOC\Modules\Module1\Data\city_temperature.csv",
+                 low_memory=False)
+
+print(df.head())
 paris_df = df.loc[(df["City"] == 'Paris')]
 
 
@@ -17,7 +21,11 @@ paristemp1998 = paris_max.loc[1998]["AvgTemperature"]
 
 hightemp = df.loc[(df["AvgTemperature"] > 80)]
 cities = hightemp.groupby("City").count()
-print(cities.loc["Milan"]["AvgTemperature"])
+# print(cities.loc["Milan"]["AvgTemperature"])
+
+plt.plot(df["Year"], color = 'green')
+plt.show()
+
 
 
 

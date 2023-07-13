@@ -1,7 +1,14 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 pd.set_option('display.max.columns', 500)
 df = pd.read_csv(r"C:\Users\James\OneDrive\Documents\CVs and applications\Online Courses\AIMOOC\Modules\Module1\Data\temperature_boston_monthly_5years.csv")
+
+df = df.drop(['Region', 'City', 'Country', 'State'], axis=1)
+
+# df = df.astype(float)
+
 
 ####### Selecting data by column ##########
 # print(df)
@@ -34,8 +41,8 @@ hot_days = df.loc[condition]
 # print(df)
 
 # below will find maximum of each column grouped by rows, hence 12 is always highest month
-allmeantemps = df.groupby("Year").mean()
-print(allmeantemps)
+# allmeantemps = df.groupby("Year").mean()
+# print(allmeantemps)
 allmaxtemps = df.groupby("Year").max()
 
 temp2015 = allmaxtemps.loc[2015]["AvgTemperature"]
@@ -47,3 +54,15 @@ temp2015sametemp = df.loc[condition]
 ####### Finding correlations
 
 # print(df.corr())
+
+########  Plotting ######
+# plt.plot(df["AvgTemperature"],  color = 'blue')
+# plt.plot(df["Month"])
+# plt.show()
+#
+# plt.scatter(range(len(df["AvgTemperature"])), df["AvgTemperature"])
+# plt.show()
+#
+# plt.hist(df["AvgTemperature"], bins=10)
+# plt.show()
+

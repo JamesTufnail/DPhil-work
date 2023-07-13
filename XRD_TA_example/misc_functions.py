@@ -3,6 +3,24 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 
+def xas_spectra_plot(data, edge_start, h_line, title):
+
+    for i, file in enumerate(data):
+        plt.plot(data[i, 0], data[i, 1], labels=data[i, 2])
+
+    if h_line:
+        plt.axhline(y=0, linestyle='--', color='black')
+
+    plt.legend()
+    plt.title(title)
+    plt.xlim(8975 - edge_start, 35)
+    plt.xlabel('Energy (eV)')
+    plt.ylabel('Intensity')
+    save_path = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\XAS\Susie data\Fu21-Python-Plots-normalised" + '\\' + title
+    plt.savefig(save_path)
+    plt.close()
+
+
 def plot_xrd(filenames):
     """ JT -  Functon to plot XRD angle vs intensity data
     INPUTS: filename = array of filenames of datasets"""
