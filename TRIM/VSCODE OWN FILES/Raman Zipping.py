@@ -30,8 +30,8 @@ def raman_zipping(x_axis, y_axis, save_folder):
     print('Zipping of file {} is complete.'.format(zipped_name))
 
 
-save_folder = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\Coated Conductors\So21Gd\Pristine\cropped and subbed"
-zipped_name = 'SO21Gd_p'
-x_axis = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\Coated Conductors\So21Gd\Pristine\cropped and subbed\1 Average of 4 Spectra (Average 5) (B+R) (Sub BG) (X-Axis).txt"
-y_axis = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\Coated Conductors\So21Gd\Pristine\cropped and subbed\1 Average of 4 Spectra (Average 5) (B+R) (Sub BG) (Y-Axis).txt"
+save_folder = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\Coated Conductors\Fu21Gd\2MeVHe\cropped and subbed"
+zipped_name = 'Fu21Gd_2MeV_He_5point_avg'
+x_axis = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\Coated Conductors\Fu21Gd\2MeVHe\cropped and subbed\2 Average of 5 Spectra (Average 5) (B+R) (Average 5) (Sub BG) (X-Axis).txt"
+y_axis = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Raman Spectroscopy\MRF Raman\Coated Conductors\Fu21Gd\2MeVHe\cropped and subbed\2 Average of 5 Spectra (Average 5) (B+R) (Average 5) (Sub BG) (Y-Axis).txt"
 raman_zipping(x_axis, y_axis, save_folder)

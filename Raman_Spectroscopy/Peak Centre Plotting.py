@@ -26,17 +26,18 @@ for peak, ax in zip(peaks,axs):
     x_labels = ["Pristine", "300 keV", "Annealed"]  # The x-values for each set of y-values
     x = [1,2,3]
 
-    y_values = [
-        p["Pristine"],  # First set of y-values (corresponding to x=1)
-        p["Irr"],  # Second set of y-values (corresponding to x=2)
-        p["Annealed"],  # Third set of y-values (corresponding to x=3)
-    ]
+    # y_values = [
+    #     p["Pristine"],  # First set of y-values (corresponding to x=1)
+    #     p["Irr"],  # Second set of y-values (corresponding to x=2)
+    #     p["Annealed"],  # Third set of y-values (corresponding to x=3)
+    # ]
+    #
+    # y_errors = [
+    #     p["Pri Error"],  # First set of y-values (corresponding to x=1)
+    #     p["Irr Error"],  # Second set of y-values (corresponding to x=2)
+    #     p["Ann Error"],  # Third set of y-values (corresponding to x=3)
+    # ]
 
-    y_errors = [
-        p["Pri Error"],  # First set of y-values (corresponding to x=1)
-        p["Irr Error"],  # Second set of y-values (corresponding to x=2)
-        p["Ann Error"],  # Third set of y-values (corresponding to x=3)
-    ]
 
     for i, (y_vals, y_errs, label) in enumerate(zip(y_values, y_errors, x_labels), start=1):
         x_coords = np.full_like(y_vals, x[i-1])  # Repeat the same x value for each y in this group

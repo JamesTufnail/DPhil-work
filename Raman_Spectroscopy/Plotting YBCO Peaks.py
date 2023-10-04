@@ -32,35 +32,43 @@ for i, (peak, shift, limits) in enumerate(zip(peaks, cascade_shifts, x_lims)):
     print(df.head())
 
     wavenumbers = [
+        df["s25 p w"],
+        df["s64 p w"],
         df["s9 300kev w"],
         df["s10 300kev w"],
         df['s29 ann w'],
         df['s32 ann w'],
-        # df['s35 ann w'],
+        df['s35 ann w'],
     ]
 
     counts = [
+        df["s25 p c"],
+        df["s64 p c"],
         df["s9 300kev c"],
         df["s10 300kev c"],
         df['s29 ann c'],
         df['s32 ann c'],
-        # df['s35 ann c'],
+        df['s35 ann c'],
     ]
 
     labels = [
+        'Pri',
+        'Pri',
         'Irr.',
         'Irr.',
-        'Ann.',
-        'Ann.',
-        # 'Ann.',
+        'Ann1.',
+        'Ann2.',
+        'Ann3.',
     ]
 
     colours = [
-        'c',
-        'c',
+        'b',
+        'b',
+        'orange',
+        'orange',
         'g',
         'g',
-        # 'g',
+        'g',
     ]
 
     cascade = 0
