@@ -212,17 +212,19 @@ MeV_to_eV = 1e6 # 1 MeV = 1e6 eV
 N_A = 6.02214076e23 # Avogadro's constant
 # step_fluence = ??
 ## TODO: calculate time taken for 1e18 n/cm2 fluence to be achieved and use this to set as time for odeint
+bham_integrated_flux = 2.37e11 # n/cm2/s
+target_fluence = 1e18 # n/cm2
+time_for_fluence = target_fluence / bham_integrated_flux
+print("Time to accumulate 1e18 n/cm2/s fluence:", time_for_fluence)
 
-t1_d= np.linspace(0,180,100) #start, stop, number - the start and stop in reality will be based on Birmingham data for when beam on.
-t2_d = np.linspace(180, 270, 100) # cool-down time
 
-t1_s = np.linspace(0, 180*86400, 100) #start, stop, number - the start and stop in reality will be based on Birmingham data for when beam on.
-t2_s = np.linspace(180*86400, 270*86400, 100) # cool-down time
+t1_s = np.linspace(0, time_for_fluence, 100) #start, stop, number - the start and stop in reality will be based on Birmingham data for when beam on.
+t2_s = np.linspace(time_for_fluence, time_for_fluence + (270*86400), 100) # cool-down time of 90 days in seconds 
 
 
 # half lives and decay probabilities of scandium isotopes
 half_life_Sc46_d = 83.79 # half life of 46Sc in days
-Sc46_decay_prob_d, Sc46_decay_prob_s = half_life_d_to_decay_prob_d(half_life_Sc46_d), half_life_d_to_decay_prob_s(half_life_Sc46_d) # Decay probability of 46Sc in second
+Sc46_decay_prob_s = half_life_d_to_decay_prob_s(half_life_Sc46_d) # Decay probability of 46Sc in second
 
 # half_life_co60 = 
 Co60_decay_prob_s = 4.166945489506e-9 # Decay probability of 60Co in second
@@ -230,7 +232,7 @@ Co60_decay_prob_d = Co60_decay_prob_s * 86400 # Decay probability of 60Co in day
 
 # half lives and decay probabilities of tin isotopes
 half_life_sn112_d = 115.09 
-Sn112_decay_prob_d, Sn112_decay_prob_s = half_life_d_to_decay_prob_d(half_life_sn112_d), half_life_d_to_decay_prob_s(half_life_sn112_d) 
+Sn112_decay_prob_s = half_life_d_to_decay_prob_s(half_life_sn112_d) 
 
 
 In113_m_decay_prob_s = half_life_min_to_decay_prob_s(99.476) # half life of metastable (1/2-) Indium 113 is 99.476 minutes
@@ -250,6 +252,23 @@ sn_density = 7310
 sn_molar_mass = 118.710
 
 radius = 1.5e-3 # radius of foil in m
+
+def mass_of_foil(thickness, density):
+    """Function to calculate the mass of the foil.
+    Parameters
+    ----------
+    thickness : float
+        Thickness of the foil in m.
+    density : float
+        Density of the foil in kg/m3.
+    """
+    volume = np.pi * radius**2 * thickness # volume of foil in m3
+    mass = volume * density * 1e3 # mass of foil in kg
+    return mass
+
+print("Mass of Scandium foil:", 1e3*mass_of_foil(sc_thickness, sc_density), "mg")
+print("Mass of Cobalt foil:", 1e3*mass_of_foil(co_thickness, co_density), "mg")
+print("Mass of Tin foil:", 1e3*mass_of_foil(sn_thickness, sn_density), "mg")
 
 
 #### Calculating number of atoms in sample
@@ -340,7 +359,7 @@ print("Counts in Sc-46 1120 keV gamma spectrum after 60 minutes:", Sc46_1120_gam
 print("Counts in Sc-46 889 keV gamma spectrum after 60 minutes:", Sc46_889_gamma_counts)
 
 # Plotting decay curve for scandium
-plot_decays(N46Sc_1, N46Sc_2, 'Time (days)', 'N46Sc')
+plot_decays(N46Sc_1, N46Sc_2, 'Time (s)', 'N46Sc')
 
 # using radiaoctivedecay module to set inventory of 46Sc using number of atoms
 # Sc46_t0 = rd.Inventory({'Sc-46': N46Sc_1[-1]}, 'num') 

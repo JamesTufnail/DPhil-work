@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James' Website</title>
+
+    <! link to css file for formatting>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="home.html" class="home-link"> James Tufnail</a></h1>
+
+        <!adding a navigation bar to the website. href is the internal link for me to use to describe>
+        <nav> 
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="vitae.html">Vitae</a></li>
+                <li><a href="#writing">Writing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <div class="banner-container">
+        <img src="images/van-doesburg2.jpg" class="banner-image">
+    <div class="banner-text">
+        <h1>James Tufnail</h1>
+        <h2>DPhil Student</h2>
+        <p><em> Theo van Doesburg - Stained-Glass Composition VIII (1919) - Public Domain </em></p>
+    </div>
+    </div>
+
+
+
+    <div class="content-wrapper">
+
+        
+        
+        <main>
+            <div class="container">
+                <figure>
+                    <img src="images/jasper.jpg">
+                </figure>
+                <div class="text-content">
+                    <h2>About</h2>
+                    <p>I'm a PhD student at the University of Oxford in the <a href="https://superconductors.web.ox.ac.uk/">Centre for Applied Superconductivity</a>, having received an MSc in Nuclear Science and Engineering from the University of Bristol, and a BEng in Materials Engineering from Exeter University.</p>
+                    
+                    <p>My research investigates the effect of radiation damage on high temperature superconductors. I conduct irradiation experiments, characterise the effects on superconducting performance and changes to the atomic structure of the material, and validate with computational models using the density-functional theory code CASTEP. </p>
+
+                        <p> The main applications of my research are: </p>
+
+                        <ul>
+                            <li> Magnets for nuclear fusion energy </li>
+                            <li> Magnets for particle accelerators (such as the high luminosity upgrade at CERN) </li>
+                            <li> Space and marine propulsion, resistanceless energy transmission, and many types of superconducting machines </li>
+                        </ul>
+
+                        <p> On this website I will share details of my academic research as well as some other writings. </p>
+
+                        <p> If you would like to reach out, I can be contacted at james.tufnail@materials.ox.ac.uk or on <a href="https://www.linkedin.com/in/james-tufnail/">LinkedIn </a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+
+
+
+    
+    <footer>
+        <hr />
+        <p>&copy; 2024 James Tufnail. All rights reserved. I created this website myself to learn some basic html, css, and java.  </p>
+    </footer>
+
+</body>
+</html>
+
+        <!-- <section id="contact">
+            <h2>Contact</h2>
+            <p>Get in touch with me.</p>
+
+            <! below is a basic form for people to reach me>
+            <form 
+                action="https://formspree.io/f/mjkbqnjk"
+                method="post"
+            >
+                <label for="name"> Your Name: </label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email"> Your Email: </label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message"> Your Message: </label>
+                <textarea id="message" name="message" rows="4"></textarea>
+
+                <input type="submit" value="Send Message">
+            </form>
+
+            <p> Join me on LinkedIn </p>
+            <ul> 
+                <li><a href="https://www.linkedin.com/in/james-tufnail/"> LinkedIn </a></li>
+            </ul>
+        </section>
