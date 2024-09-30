@@ -40,13 +40,17 @@ import glob
 
 #### File Locations ####
 
+files = [r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\XRD\Cu-and-cuo\metallic-cu-fcc-lattice.txt"]
+sample_names = [' Cu']
+sample_type = ''
+
 # sample_type = 'Fu21Gd'
 # sample_names = ['SM1a', 'SM1b', 'SM1c']
 # files = glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\Ion 1 XRD\c-axis\SM1*.txt")
 
-sample_type = 'SuNAM21Gd'
-sample_names = ['SM2a', 'SM2b', 'SM2c']
-files = glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\Ion 1 XRD\c-axis\SM2*.txt")
+# sample_type = 'SuNAM21Gd'
+# sample_names = ['SM2a', 'SM2b', 'SM2c']
+# files = glob.glob(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\Ion 1 XRD\c-axis\SM2*.txt")
 
 # sample_type = 'SP11Gd'
 # sample_names = ['SM3a', 'SM3b', 'SM3c']
@@ -57,14 +61,10 @@ param_file = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC
 fig_destination = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\Ion 1 XRD\Figures"
 
 ####### Magic ###########
-save_fig = True # Setting to True will save the figures
+save_fig = False # Setting to True will save the figures
 save_params = False # Setting to True will save the parameters to the excel file
 
 plotType = 'nelson_riley'
-
-# plotType = 'c_axis_vs_2theta'
-# plotType = 'bradley_jay'
-# plotType = 'misalignment'
 
 
 ############### Define fitting functions #################
@@ -300,7 +300,7 @@ fitting_functions = {
 ###############
 """This section is where you choose to plot individually or all on a combined plot"""
 plt, results_df = plot_single_plot(files, plotType, sample_names, sample_type, save_fig=save_fig, save_params=save_params)
-plt, results_df = plot_combined_plot(files, plotType, sample_names, sample_type, save_fig=save_fig, save_params=save_params)
+# plt, results_df = plot_combined_plot(files, plotType, sample_names, sample_type, save_fig=save_fig, save_params=save_params)
 
 
 """ Below currently doesn't work..."""
