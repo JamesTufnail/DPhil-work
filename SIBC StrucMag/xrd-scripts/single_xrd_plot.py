@@ -11,10 +11,11 @@ from pybaselines import Baseline, utils
 from scipy.signal import find_peaks
 import numpy as np
 
-sample = 'Cu Metal'
-data = pd.read_csv(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\XRD\Cu-and-cuo\CuO_powder_spinner_gonio_v1.csv",
-                   delimiter = ',', header=25)
+sample = 'O2 Annealed SuNAM21Gd'
+data = pd.read_csv(r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\XRD\Annealed-xrd\#an-01\SuNAM21Gd_1-O_ann_b_1_gonio_v1.csv",
+                   delimiter = ',', header=28)
 
+print(data.head())
 
 angle, intensity = data['Angle'], data['Intensity']
 root_intensity = [i**0.5 for i in intensity]

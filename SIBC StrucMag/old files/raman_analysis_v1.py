@@ -250,15 +250,15 @@ def plot_multiple(files, labels, sample, processed=False):
     return
 
 ### SCRIPT ###
-label = 'Fu21Gd-SM1c'
-file = [r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\Pristine Raman Data\Pristine raw data\Fu21Gd-SM1c-532nm.txt"]
+label = 'Cu Metal (532 nm)'
+file = [r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\Raman\Pristine Raman Data\Pristine raw data\SP11-SM-avg-532nm.txt"]
 save_loc = r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\Pristine Raman Data\Normalised Raw Spectra - Full Range"
 
 # ~~~~~~~~~~~~~~~~~  Plot raw raman data as it is over full range ~~~~~~~~~~~~~~~~~~~~~~~ # 
 data, wavenumber, intensity = raw_raman_complex_plot(file, label, save_loc=save_loc, save=False) # plot simple raw data
 
 # ~~~~~~~~~~~~~~~~~ Processing data (bkg, normalsie) ~~~~~~~~~~~~~~~~~~~~~~~~  # 
-wavenumber, intensity = filter_data(data, wavenumber, intensity, 66) # removing some low values to improve snip fit
+wavenumber, intensity = filter_data(data, wavenumber, intensity, 50) # removing some low values to improve snip fit
 wavenumber, sub_int = remove_background_snip(wavenumber, intensity, label) # remove background using snip
 
 sigma = 2

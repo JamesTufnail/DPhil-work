@@ -40,9 +40,9 @@ import glob
 
 #### File Locations ####
 
-files = [r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\XRD\Cu-and-cuo\metallic-cu-fcc-lattice.txt"]
-sample_names = [' Cu']
-sample_type = ''
+files = [r"C:\Users\James\OneDrive - Nexus365\DPhil-general\Experiments\SIBC StrucMag\XRD\Annealed-xrd\#an-01\#an-01-peaks.txt"]
+sample_names = [' O2 Annealed']
+sample_type = ' SuNAM21Gd '
 
 # sample_type = 'Fu21Gd'
 # sample_names = ['SM1a', 'SM1b', 'SM1c']
@@ -139,7 +139,7 @@ def plot_single_plot(files, plotType, sample_names, sample_type, save_fig=False,
         plt.legend()
         plt.xlabel(x_label_dic[plotType])
         plt.ylabel('c-axis lattice parameter (Å)')
-        plt.title(f'{name_dic[plotType]} for Pristine {sample_type}-' + sample_name )
+        plt.title(f'{name_dic[plotType]} for {sample_type}-' + sample_name )
 
         if save_fig:
             plt.savefig(fig_destination + '\\' + sample_type + '-' + sample_name + ' ' + f'{plotType}' + '.png')
